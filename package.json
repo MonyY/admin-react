@@ -1,0 +1,8 @@
+{
+  "name": "admin-react",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/MonyY/admin-react.git",
+  "author": "郁世昌 <yushichang0845@dingtalk.com>",
+  "license": "MIT"
+}
