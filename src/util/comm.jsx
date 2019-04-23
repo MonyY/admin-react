@@ -6,7 +6,7 @@ class MUtil {
 				url: params.url || '',
 				dataType: params.dataType || 'json',
 				data: params.data || null,
-				success:(res) => {
+				success: res => {
 					if (res.status === 0) {
 						// 成功
 						typeof resolve === 'function' && resolve(res.data, res.msg);
@@ -18,7 +18,7 @@ class MUtil {
 						typeof reject === 'function' && reject(res.msg || res.data);
 					}
 				},
-				error:(err) => {
+				error: err => {
 					typeof reject === 'function' && reject(err.statusText);
 				}
 			});
@@ -41,6 +41,10 @@ class MUtil {
 
 	// 请求失败提示
 	errTips(msg = '好像哪里不对了~') {
+		console.log(msg);
+	}
+
+	successTips(msg = '操作成功') {
 		console.log(msg);
 	}
 
