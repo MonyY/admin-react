@@ -8,17 +8,13 @@ class FileUploader extends Component {
 			fileFieldName: 'upload_file',
 			chooseAndUpload: true,
 			dataType: 'json',
-			uploadSuccess: res => {
-				console.log(res);
-			},
-			uploadError: err => {
-				console.log(err);
-			}
+			uploadSuccess: this.props.onSuccess,
+			uploadError: this.props.onError
 		};
 
 		return (
 			<FileUpload options={options}>
-				<button ref="chooseAndUpload">请选择图片</button>
+				<button className="btn btn-xs btn-default" ref="chooseAndUpload">请选择图片</button>
 			</FileUpload>
 		);
 	}

@@ -1,7 +1,9 @@
 import React from 'react';
 import PageTitle from 'component/page-title/index.jsx';
 import CategorySelector from './category-selector.jsx';
-import FileUpload from 'util/file-upload/index.jsx'
+import FileUpload from 'util/file-upload/index.jsx';
+
+import './save.scss';
 
 class ProductSave extends React.Component {
 	constructor(props) {
@@ -9,7 +11,8 @@ class ProductSave extends React.Component {
 
 		this.state = {
 			categoryId: 0,
-			parentCategoryId: 0
+			parentCategoryId: 0,
+			subImages: []
 		};
 	}
 
@@ -17,6 +20,30 @@ class ProductSave extends React.Component {
 	onCategoryChange(categoryId, parentCategoryId) {
 		console.log(categoryId);
 		console.log(parentCategoryId);
+	}
+
+	// 上传图片成功
+	onUploadSuccess(res) {
+		let subImages = this.state.subImages;
+		subImages.push(res.data);
+		this.setState({
+			subImages
+		});
+	}
+
+	// 上传图片失败
+	onUploadError(err) {
+		console.log(err.message || '上传图片失败');
+	}
+
+	// 删除图片
+	deleImg(e) {
+		let index = e.target.index,
+			subImages = this.state.subImages;
+		subImages.splice(index, 1);
+		this.setState({
+			subImages
+		});
 	}
 
 	render() {
@@ -81,7 +108,26 @@ class ProductSave extends React.Component {
 					<div className="form-group">
 						<label className="col-md-2 control-label">商品图片</label>
 						<div className="col-md-10">
-							<FileUpload></FileUpload>
+							{this.state.subImages.length ? (
+								this.state.subImages.map((item, index) => (
+									<div className="img-con" key={index}>
+										<img src={item.url} alt="商品图片" />
+										<i
+											className="fa fa-times"
+											index={index}
+											onClick={e => this.deleImg(e)}
+										/>
+									</div>
+								))
+							) : (
+								<div>请上传图片</div>
+							)}
+						</div>
+						<div className="col-md-offset-2 col-md-10">
+							<FileUpload
+								onSuccess={res => this.onUploadSuccess(res)}
+								onError={err => this.onUploadError(err)}
+							/>
 						</div>
 					</div>
 					<div className="form-group">

@@ -28,44 +28,42 @@ class Login extends Component {
 				<div className="panel panel-primary login-panel">
 					<div className="panel-heading">欢迎登陆 - MMALL管理系统</div>
 					<div className="panel-body">
-						<div>
-							<div className="form-group">
-								<input
-									name="username"
-									type="text"
-									className="form-control"
-									placeholder="请输入用户名"
-									onChange={e => {
-										this.onInputChange(e);
-									}}
-									onKeyUp={e => {
-										this.onInputKeyUp(e);
-									}}
-								/>
-							</div>
-							<div className="form-group">
-								<input
-									name="password"
-									type="password"
-									className="form-control"
-									placeholder="请输入密码"
-									onChange={e => {
-										this.onInputChange(e);
-									}}
-									onKeyUp={e => {
-										this.onInputKeyUp(e);
-									}}
-								/>
-							</div>
-							<button
-								className="btn btn-lg btn-block btn-primary"
-								onClick={e => {
-									this.onSubmit(e);
+						<div className="form-group">
+							<input
+								name="username"
+								type="text"
+								className="form-control"
+								placeholder="请输入用户名"
+								onChange={e => {
+									this.onInputChange(e);
 								}}
-							>
-								登录
-							</button>
+								onKeyUp={e => {
+									this.onInputKeyUp(e);
+								}}
+							/>
 						</div>
+						<div className="form-group">
+							<input
+								name="password"
+								type="password"
+								className="form-control"
+								placeholder="请输入密码"
+								onChange={e => {
+									this.onInputChange(e);
+								}}
+								onKeyUp={e => {
+									this.onInputKeyUp(e);
+								}}
+							/>
+						</div>
+						<button
+							className="btn btn-lg btn-block btn-primary"
+							onClick={e => {
+								this.onSubmit(e);
+							}}
+						>
+							登录
+						</button>
 					</div>
 				</div>
 			</div>
