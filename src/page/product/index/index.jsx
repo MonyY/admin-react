@@ -163,9 +163,6 @@ class UserList extends Component {
 									</button>
 								</td>
 								<td>
-									<Link className="opear" to={`/product/detail/${item.id}`}>
-										详情
-									</Link>
 									<Link className="opear" to={`/product/save/${item.id}`}>
 										编辑
 									</Link>
