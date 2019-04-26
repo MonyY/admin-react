@@ -13,19 +13,49 @@ class CategorySelector extends React.Component {
 
 		this.state = {
 			firstCategoryList: [],
-			firstCategoryId: 0,
+			firstCategoryId: 1,
 			secondCategoryList: [],
 			secondCategoryId: 0
 		};
 	}
 
 	componentWillMount() {
-		this.loadFirstCategory();
+		this.loadFirstCategory(this.state.firstCategoryId);
+	}
+
+	componentWillReceiveProps(nextProps) {
+		let categoryIdChange = this.props.categoryId !== nextProps.categoryId,
+			parentCategoryId = this.props.parentCategoryId !== nextProps.parentCategoryId;
+		// 如果数据没有变化
+		if (!categoryIdChange && !parentCategoryId) {
+			return;
+		}
+		if (nextProps.parentCategoryId === 0) {
+			this.setState(
+				{
+					firstCategoryId: nextProps.categoryId,
+					secondCategoryId: 0
+				},
+				() => {
+					this.loadFirstCategory();
+				}
+			);
+		} else {
+			this.setState(
+				{
+					firstCategoryId: nextProps.parentCategoryId,
+					secondCategoryId: nextProps.categoryId
+				},
+				() => {
+					parentCategoryId && this.loadSecondCategory();
+				}
+			);
+		}
 	}
 
 	// 加载一级分类
 	loadFirstCategory() {
-		_product.getCategoryList().then(
+		_product.getCategoryList(this.state.firstCategoryId).then(
 			res => {
 				this.setState({
 					firstCategoryList: res
@@ -87,11 +117,7 @@ class CategorySelector extends React.Component {
 		let flag = typeof this.props.onCategoryChange === 'function';
 		// 如果选择了二级分类
 		if (this.state.secondCategoryId) {
-			flag &&
-				this.props.onCategoryChange(
-					this.state.secondCategoryId,
-					this.state.firstCategoryId
-				);
+			flag && this.props.onCategoryChange(this.state.secondCategoryId, this.state.firstCategoryId);
 		} else {
 			// 只选择了一级分类
 			flag && this.props.onCategoryChange(this.state.firstCategoryId, 0);
@@ -102,6 +128,7 @@ class CategorySelector extends React.Component {
 		return (
 			<div className="col-md-10">
 				<select
+					value={this.state.firstCategoryId}
 					onChange={e => {
 						this.onFirstCategoryChange(e);
 					}}
@@ -118,6 +145,7 @@ class CategorySelector extends React.Component {
 				</select>
 				{this.state.secondCategoryList.length ? (
 					<select
+						value={this.state.secondCategoryId}
 						onChange={e => {
 							this.onSecondCategoryChange(e);
 						}}

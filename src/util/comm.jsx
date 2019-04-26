@@ -5,6 +5,7 @@ class MUtil {
 				type: params.type || 'get',
 				url: params.url || '',
 				dataType: params.dataType || 'json',
+				headers: params.headers || {},
 				data: params.data || null,
 				success: res => {
 					if (res.status === 0) {

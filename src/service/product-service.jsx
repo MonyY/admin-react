@@ -23,6 +23,16 @@ class Product {
 		});
 	}
 
+	// 获取商品详情
+	getProduct(id = 0) {
+		return _mm.request({
+			url: '/manage/product/detail.do',
+			data: {
+				productId: id
+			}
+		});
+	}
+
 	// 修改商品状态
 	setProductStatus(data) {
 		return _mm.request({
@@ -41,6 +51,14 @@ class Product {
 			data: {
 				categoryId: id
 			}
+		});
+	}
+
+	// 保存商品
+	saveProduct(product) {
+		return _mm.request({
+			url: '/manage/product/save.do',
+			data: product
 		});
 	}
 }
